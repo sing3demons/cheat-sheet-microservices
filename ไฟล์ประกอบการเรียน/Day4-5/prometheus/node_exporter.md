@@ -4,7 +4,7 @@ written in Go with pluggable metric collectors.
 
 ```
 docker run -d -p 9100:9100 -v "/:/host:ro,rslave" quay.io/prometheus/node-exporter:latest --path.rootfs=/host
-  ```
+```
   
  # docker run -d -p 9100:9100 \
  # --net="host" \
