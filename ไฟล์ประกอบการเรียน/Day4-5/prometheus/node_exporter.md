@@ -6,12 +6,12 @@ written in Go with pluggable metric collectors.
 docker run -d -p 9100:9100 -v "/:/host:ro,rslave" quay.io/prometheus/node-exporter:latest --path.rootfs=/host
 ```
   
- # docker run -d -p 9100:9100 \
- # --net="host" \
- # --pid="host" \
- # -v "/:/host:ro,rslave" \
- # quay.io/prometheus/node-exporter:latest \
-// --path.rootfs=/host
+<!--   docker run -d -p 9100:9100 \
+ --net="host" \
+ --pid="host" \
+ -v "/:/host:ro,rslave" \
+ quay.io/prometheus/node-exporter:latest \
+--path.rootfs=/host -->
 
 2. IP:9100/metrics
 
