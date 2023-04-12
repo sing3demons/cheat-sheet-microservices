@@ -11,7 +11,7 @@ docker run -d -p 9100:9100 -v "/:/host:ro,rslave" quay.io/prometheus/node-export
  # --pid="host" \
  # -v "/:/host:ro,rslave" \
  # quay.io/prometheus/node-exporter:latest \
-#  --path.rootfs=/host
+// --path.rootfs=/host
 
 2. IP:9100/metrics
 
