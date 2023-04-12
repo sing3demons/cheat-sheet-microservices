@@ -1,0 +1,10 @@
+FROM node:18-alpine
+
+WORKDIR /usr/src/myapp
+
+COPY ./ ./
+
+EXPOSE 4000
+
+CMD ["npm", "start"]
+

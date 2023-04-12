@@ -1,0 +1,11 @@
+
+https://github.com/kbudde/rabbitmq_exporter
+
+1. ติดตั้ง RabbitMQ + exporter
+docker run --restart=always -d --hostname nt-rabbitmq --name nt-rabbitmq -p 5672:5672 -p 15672:15672 -e RABBITMQ_ERLANG_COOKIE='cookie_for_clustering' -e RABBITMQ_DEFAULT_USER=guest -e RABBITMQ_DEFAULT_PASS=guest --name nt-rabbit -p 9419:9419 rabbitmq:3-management
+
+docker run -d --net=container:nt-rabbit kbudde/rabbitmq-exporter
+
+
+2. ทดลองใช้ grafana
+https://grafana.com/grafana/dashboards/4279

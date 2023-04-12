@@ -1,0 +1,24 @@
+docker run --rm --volumes-from sql-server -v sqlvolume:/var/opt/mssql ubuntu tar cvf /backup/backup.tar /sqlvolume
+
+docker run \
+--name sql-server \
+-e 'ACCEPT_EULA=Y' \
+-e 'SA_PASSWORD=Admin_1jj395qu' \
+-e TZ=Asia/Bangkok \
+-e 'MSSQL_LCID=1054' \
+-e 'MSSQL_COLLATION=Thai_CI_AS' \
+-p 1433:1433 \
+-v sqlvolume:/var/opt/mssql \
+--restart always \
+-d mcr.microsoft.com/mssql/server:2019-latest
+
+
+
+Connection String:
+
+Data Source=178.128.57.228;Initial Catalog=ชื่อฐานข้อมูล;Persist Security Info=True;User ID=sa;Password=Admin_1jj395qu;Pooling=False
+
+
+
+
+dotnet aspnet-codegenerator controller -name=HomeController -m=Models\OrderReport -dc=APIContext -api -async -outDir=Controllers

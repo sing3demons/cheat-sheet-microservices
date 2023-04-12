@@ -1,0 +1,77 @@
+1. ดูคู่มือได้ที่นี่ https://docs.konghq.com/gateway/3.2.x/install/docker/
+
+
+1.1 docker network create kong-net
+
+
+1.2 Start a PostgreSQL container:  
+
+docker run -d --name kong-database \
+  --network=kong-net \
+  -p 5432:5432 \
+  -e "POSTGRES_USER=kong" \
+  -e "POSTGRES_DB=kong" \
+  -e "POSTGRES_PASSWORD=kongpass" \
+  postgres:13
+
+
+1.3 Prepare the Kong database: 
+
+docker run --rm --network=kong-net \
+  -e "KONG_DATABASE=postgres" \
+  -e "KONG_PG_HOST=kong-database" \
+  -e "KONG_PG_PASSWORD=kongpass" \
+  -e "KONG_PASSWORD=test" \
+ kong/kong-gateway:3.2.2.1 kong migrations bootstrap
+
+1.4 start a container with Kong Gateway:
+
+docker run -d --name kong-gateway \
+  --network=kong-net \
+  -e "KONG_DATABASE=postgres" \
+  -e "KONG_PG_HOST=kong-database" \
+  -e "KONG_PG_USER=kong" \
+  -e "KONG_PG_PASSWORD=kongpass" \
+  -e "KONG_PROXY_ACCESS_LOG=/dev/stdout" \
+  -e "KONG_ADMIN_ACCESS_LOG=/dev/stdout" \
+  -e "KONG_PROXY_ERROR_LOG=/dev/stderr" \
+  -e "KONG_ADMIN_ERROR_LOG=/dev/stderr" \
+  -e "KONG_ADMIN_LISTEN=0.0.0.0:8001" \
+  -p 8000:8000 \
+  -p 8443:8443 \
+  -p 8001:8001 \
+  -p 8444:8444 \
+  -p 8002:8002 \
+  -p 8445:8445 \
+  -p 8003:8003 \
+  -p 8004:8004 \
+  kong/kong-gateway:3.2.2.1
+
+
+1.5 Verify your installation
+http://IP:8001/services
+
+1.6 Verify that Kong Manager is running 
+http://IP:8002
+
+
+2. install konga
+docker run -d -p 1337:1337 --network kong-net --name konga pantsel/konga
+
+*ใส่ docker network ในที่นี่คือ kong-network ให้ตรงกับข้อ 1
+
+http://IP:1337/
+ตั้งรหัสผ่านใหม่ได้ เช่น
+user: admin
+password: 1jj395qu
+
+กรอก Kong Admin URL ให้ตรงกับชื่อ container ในข้อ 1.4 (--name kong-gateway)
+ตั้งชื่อ 
+http://kong-gateway:8001
+
+
+เวลาเรียกใช้ public api url ของ kong ใช้ port 8000 ตามข้อ 1.4
+
+
+เว็บทดลองสร้าง jwt token
+http://jwtbuilder.jamiekurtz.com/

@@ -1,0 +1,21 @@
+สร้าง Docker Network ก่อน ด้วยคำสั่ง
+docker network create mysql-network
+
+//MySQL
+docker run --restart=always  --net mysql-network --network-alias db --name mysql-server -v /root/mysql-data:/var/lib/mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=Admin_1jj395qu -d mysql:8
+
+
+//phpMyAdmin
+docker run --restart=always  --net mysql-network --network-alias db  --name phpmyadmin -d  -p 7005:80 phpmyadmin:latest
+
+
+//Rabbitmq
+docker run --restart=always -d --hostname nt-rabbitmq --name nt-rabbitmq -p 5672:5672 -p 15672:15672 -e RABBITMQ_ERLANG_COOKIE='cookie_for_clustering' -e RABBITMQ_DEFAULT_USER=rabbitmq -e RABBITMQ_DEFAULT_PASS=1jj395qu  --name nt-rabbit rabbitmq:3-management
+
+
+
+
+
+
+
+

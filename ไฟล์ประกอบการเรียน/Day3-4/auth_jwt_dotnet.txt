@@ -1,0 +1,31 @@
+// add Jwt service
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(
+                config =>
+                {
+                    //config.SaveToken = true;
+
+                    config.TokenValidationParameters = new TokenValidationParameters()
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration.GetSection("JWT_KEY").Value!)),
+                        ValidateIssuer = false,
+                        ValidateAudience = false,
+                        // set clockskew to zero so tokens expire exactly at token expiration time (instead of 5 minutes later)
+                        ClockSkew = TimeSpan.Zero
+                    };
+
+                    //check token validation
+                    //config.TokenValidationParameters = new TokenValidationParameters()
+                    //{
+                    //    ValidateLifetime = true,
+                    //    ClockSkew = TimeSpan.Zero,
+                    //    //ValidateIssuer = true,
+                    //    //ValidIssuer = "pea",
+                    //    //ValidateAudience = true,
+                    //    //ValidAudience = "everyone",
+                    //    ValidateIssuerSigningKey = true,
+                    //    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("odn051PvFMtRTBZsqmWkGJl8CHbKceQz"))
+                    //};
+
+                }
+            );

@@ -1,0 +1,13 @@
+username = doadmin
+password = AVNS_jk24kfEbfNOEdnFPy-C
+host = db-postgres-do-user-998710-0.b.db.ondigitalocean.com
+port = 25060
+database = defaultdb
+sslmode = require
+
+
+DATABASE_DNS = host=db-postgres-do-user-998710-0.b.db.ondigitalocean.com user=doadmin password=AVNS_jk24kfEbfNOEdnFPy-C dbname=defaultdb port=25060 sslmode=require TimeZone=Asia/Bangkok
+
+
+
+
